@@ -352,7 +352,7 @@ travelApp.getUserRankings = function () {
     travelApp.imageArray = [];
     travelApp.imageTextArray = [];
 
-    $(".results").flickity("destroy");
+    // $(".results").flickity("destroy");
 
     travelApp.getStat.apply(travelApp, statsForAPICall);
   });
@@ -702,13 +702,13 @@ travelApp.finalDisplay = function () {
   $(".results").waitForImages(function () {
     $(".results").css("display", "flex");
 
-    var flickityOrNot = "flex";
-    if (window.matchMedia("(max-width: 1100px)").matches) {
+    var flickityOrNot = "block";
+    if (window.matchMedia("(max-width: 1920px)").matches) {
       /* the viewport is at most 1100 pixels wide */
       flickityOrNot = "block";
     }
 
-    $(".results").css("display", flickityOrNot);
+    // $(".results").css("display", flickityOrNot);
     $("html, body").stop().animate({ scrollTop: $(".results").offset().top }, 900, "swing");
 
     // remove loader and display submit ranking button again
