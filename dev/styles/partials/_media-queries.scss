@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 @media screen and (min-width: 1920px) {
   /* disable Flickity for large devices */
   .results:after {
@@ -5,6 +6,8 @@
   }
 }
 
+=======
+>>>>>>> 6e5aed8fd06dc558c9a3e4d355f20824c153c10f
 // Set up styling for flickity (1 country card at a time)
 @media all and (max-width: 1100px) {
   .wrapper-sec {
@@ -40,6 +43,10 @@
 
   .country-image-container {
     width: 60%;
+  }
+
+  .flickity-button {
+    display: block;
   }
 }
 
@@ -112,9 +119,6 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-    }
-
-    &__logo-container {
     }
 
     &__message {
@@ -210,8 +214,8 @@
   }
 
   .flickity-button {
-    width: 30px;
-    height: 30px;
+    width: 25px;
+    height: 25px;
   }
 }
 

@@ -35,8 +35,7 @@ travelApp.statArray = [
         stat: "tourism_expenditure",
         direction: "max",
         statName: "Tourist Expenditure",
-        description:
-          "The amount of government spending dedicated for tourism (in % of the GDP for a country)."
+        description: "The amount of government spending dedicated for tourism (in % of the GDP for a country)."
       },
       {
         stat: "urban_population",
@@ -61,8 +60,7 @@ travelApp.statArray = [
         stat: "education_expenditure",
         direction: "max",
         statName: "Education Expenditure",
-        description:
-          "Education expenditure represents government spending in % of GDP."
+        description: "Education expenditure represents government spending in % of GDP."
       },
       {
         stat: "co2_emissions",
@@ -74,8 +72,7 @@ travelApp.statArray = [
         stat: "corruption_index",
         direction: "min",
         statName: "Corruption Index",
-        description:
-          "Corruption Perceptions Index (CPI). (Scale: 0-100; 0 = high corruption. 100 = low corruption)."
+        description: "Corruption Perceptions Index (CPI). (Scale: 0-100; 0 = high corruption. 100 = low corruption)."
       },
       {
         stat: "happiness_index",
@@ -181,8 +178,7 @@ travelApp.statArray = [
         stat: "jobless_rate",
         direction: "min",
         statName: "Jobless Rate",
-        description:
-          "The number of unemployed people in relation to the labor force for a country."
+        description: "The number of unemployed people in relation to the labor force for a country."
       },
       {
         stat: "medianwage",
@@ -209,8 +205,7 @@ travelApp.statArray = [
         stat: "corruption_index",
         direction: "min",
         statName: "Corruption Index",
-        description:
-          "Corruption Perceptions Index (CPI). (Scale: 0-100; 0 = high corruption. 100 = low corruption)."
+        description: "Corruption Perceptions Index (CPI). (Scale: 0-100; 0 = high corruption. 100 = low corruption)."
       },
       {
         stat: "medianwage",
@@ -255,8 +250,7 @@ travelApp.statArray = [
         stat: "jobless_rate",
         direction: "min",
         statName: "Jobless Rate",
-        description:
-          "The number of unemployed people in relation to the labor force for a country."
+        description: "The number of unemployed people in relation to the labor force for a country."
       },
       {
         id: "button-perm-solo",
@@ -283,8 +277,7 @@ travelApp.statArray = [
         stat: "debts_percent",
         direction: "min",
         statName: "Government Debt",
-        description:
-          "The percentage of government borrowings in relation to the GDP."
+        description: "The percentage of government borrowings in relation to the GDP."
       }
     ]
   },
@@ -297,8 +290,7 @@ travelApp.statArray = [
         stat: "education_expenditure",
         direction: "max",
         statName: "Education Expenditure",
-        description:
-          "Education expenditure represents government spending in % of GDP."
+        description: "Education expenditure represents government spending in % of GDP."
       },
       {
         stat: "health_expenditure",
@@ -310,15 +302,13 @@ travelApp.statArray = [
         stat: "literacy_rate",
         direction: "max",
         statName: "Literacy Rate",
-        description:
-          "The percentage of people that have the ability to read and write by age 15."
+        description: "The percentage of people that have the ability to read and write by age 15."
       },
       {
         stat: "life_expectancy",
         direction: "max",
         statName: "Life Expectancy",
-        description:
-          "The average number of years a person will live (at birth)."
+        description: "The average number of years a person will live (at birth)."
       },
       {
         stat: "death_rate",
@@ -340,7 +330,7 @@ travelApp.statArray = [
 /* 0. GET STARTED */
 travelApp.getStarted = () => {
   // Listens for click on GET STARTED BUTTON
-  $(".welcome__button").on("click", function () {
+  $(".welcome__button").on("click", function() {
     // Smooth scroll to next section
     $("html, body")
       .stop()
@@ -350,7 +340,7 @@ travelApp.getStarted = () => {
 
 /* 1. GET USER INPUT */
 travelApp.getUserPurpose = () => {
-  $(".travel-form__button").on("click", function () {
+  $(".travel-form__button").on("click", function() {
     // Store user input in variable
     const inputID = $(this).attr("id");
     travelApp.userPurpose = inputID;
@@ -409,7 +399,7 @@ travelApp.displayStats = purposeID => {
 
 /* 3. OBTAIN THE RANKING OF THE STATS FROM USER */
 travelApp.getUserRankings = () => {
-  $(".choices").on("click", ".user-submit", function () {
+  $(".choices").on("click", ".user-submit", function() {
     // remove submit button and put a loader until the results come back
     // .html(`<img class="loader" src="../../assets/spinner-1s-100px.svg">`);
     $(".choices").find(
@@ -511,50 +501,35 @@ travelApp.getStat = (statType1, statType2, statType3) => {
     // calling the calculation function to get the top n / bottom n countries
 
     //finalResults holds the final 3 coutries and all of their stats
-    let finalResults = travelApp.getRecommendations(
-      res,
-      statType1,
-      statType2,
-      statType3
-    );
+    let finalResults = travelApp.getRecommendations(res, statType1, statType2, statType3);
 
     // Get wiki and pixa extracts for each country
     finalResults.forEach(countryObj => {
       // get wiki extracts and put promises into array
-      travelApp.wikiPromiseArray.push(
-        travelApp.getWiki(countryObj.countryName)
-      );
+      travelApp.wikiPromiseArray.push(travelApp.getWiki(countryObj.countryName));
 
       // get pixa extracts and put promises into array
-      travelApp.pixaPromiseArray.push(
-        travelApp.getPixa(countryObj.countryName)
-      );
+      travelApp.pixaPromiseArray.push(travelApp.getPixa(countryObj.countryName));
     });
 
     // when all wiki and pixa promises are fulfilled, store the results
     // to prepare them for display
-    $.when(...travelApp.wikiPromiseArray, ...travelApp.pixaPromiseArray).then(
-      (...wikiPixaResults) => {
-        // go through the wikiPixa results
-        for (let i = 0; i < wikiPixaResults.length; i++) {
-          // first three are wiki, push (store) into array
-          if (i < 3) {
-            travelApp.storeWiki(wikiPixaResults[i]);
-          }
-          // last three are pixa, push (store) into array
-          else {
-            travelApp.storePixa(wikiPixaResults[i]);
-          }
+    $.when(...travelApp.wikiPromiseArray, ...travelApp.pixaPromiseArray).then((...wikiPixaResults) => {
+      // go through the wikiPixa results
+      for (let i = 0; i < wikiPixaResults.length; i++) {
+        // first three are wiki, push (store) into array
+        if (i < 3) {
+          travelApp.storeWiki(wikiPixaResults[i]);
         }
-
-        // Once results all stored, display all info on screen (3 countries, wiki and pixa)
-        travelApp.displayDestinations(finalResults, [
-          statType1,
-          statType2,
-          statType3
-        ]);
+        // last three are pixa, push (store) into array
+        else {
+          travelApp.storePixa(wikiPixaResults[i]);
+        }
       }
-    );
+
+      // Once results all stored, display all info on screen (3 countries, wiki and pixa)
+      travelApp.displayDestinations(finalResults, [statType1, statType2, statType3]);
+    });
   });
 };
 
@@ -577,28 +552,13 @@ travelApp.getRecommendations = (res, statType1, statType2, statType3) => {
   initialArr = travelApp.determineResults(res, "hdi", "max", initialIter);
 
   // ITERATION 1
-  arr1 = travelApp.determineResults(
-    initialArr,
-    statType1,
-    arrDirections[0],
-    iteration1
-  );
+  arr1 = travelApp.determineResults(initialArr, statType1, arrDirections[0], iteration1);
 
   // ITERATION 2
-  arr2 = travelApp.determineResults(
-    arr1,
-    statType2,
-    arrDirections[1],
-    iteration2
-  );
+  arr2 = travelApp.determineResults(arr1, statType2, arrDirections[1], iteration2);
 
   // ITERATION 3
-  arr3 = travelApp.determineResults(
-    arr2,
-    statType3,
-    arrDirections[2],
-    iteration3
-  );
+  arr3 = travelApp.determineResults(arr2, statType3, arrDirections[2], iteration3);
 
   // return the array with the final results
   return arr3;
@@ -650,21 +610,11 @@ travelApp.determineResults = (array, statType, direction, iterationNumber) => {
   let resultArray = [];
   // if we want TOP numbers
   if (direction === "max") {
-    resultArray = travelApp.determineNCountries(
-      array,
-      statType,
-      iterationNumber,
-      1
-    );
+    resultArray = travelApp.determineNCountries(array, statType, iterationNumber, 1);
   }
   // if we want BOT numbers
   else if (direction === "min") {
-    resultArray = travelApp.determineNCountries(
-      array,
-      statType,
-      iterationNumber,
-      -1
-    );
+    resultArray = travelApp.determineNCountries(array, statType, iterationNumber, -1);
   }
   return resultArray;
 };
@@ -805,14 +755,7 @@ travelApp.displayDestinations = (results, statChoices) => {
     let countryContainerElement = $("<div>")
       .addClass("result-container")
       // assign random pixa image of country to the result background
-      .css(
-        "background-image",
-        `url("${
-        travelApp.imageArray[
-        travelApp.randomize(imageCounter, imageCounter + 15)
-        ]
-        }")`
-      );
+      .css("background-image", `url("${travelApp.imageArray[travelApp.randomize(imageCounter, imageCounter + 15)]}")`);
     // This element will hold all text and image(s) referring to the country result
     let countryCardElement = $("<div>").addClass("card");
     // This element holds the name of the country
@@ -827,22 +770,14 @@ travelApp.displayDestinations = (results, statChoices) => {
     // This element holds the text for each of the three stats we're displaying
     let statListElement = $("<ul>").addClass("stat-list");
     // This element holds the container that will hold the small pixa country image
-    let smallPixaContainerElement = $("<div>").addClass(
-      "country-image-container"
-    );
+    let smallPixaContainerElement = $("<div>").addClass("country-image-container");
     // This new image counter gets the image in the array that follows the first image being used as a background image for the card
     // This image element will be appended to the image container
     let smallPixaImage = $("<img>")
       .addClass("country-image")
       .attr({
-        src: `${
-          travelApp.imageArray[
-          travelApp.randomize(imageCounter, imageCounter + 15)
-          ]
-          }`,
-        alt: `Scenic image of ${country.countryName}. Image tags include ${
-          travelApp.imageTextArray
-          }.`
+        src: `${travelApp.imageArray[travelApp.randomize(imageCounter, imageCounter + 15)]}`,
+        alt: `Scenic image of ${country.countryName}. Image tags include ${travelApp.imageTextArray}.`
       });
     // Add 15 to the image counter ensures that every iteration through the forEach will add images to the associated coutries
     imageCounter += 15;
@@ -873,9 +808,7 @@ travelApp.displayDestinations = (results, statChoices) => {
       // This list item element will hold stat information
       let statListItemElement = $("<li>").addClass("stat-list__item");
       // This div will hold the stat title and question mark icon
-      let statTitleIconContainerElement = $("<div>").addClass(
-        "stat-list__item__title-icon-container"
-      );
+      let statTitleIconContainerElement = $("<div>").addClass("stat-list__item__title-icon-container");
       // This element holds the stat title and value
       let statTitleElement = $("<h4>")
         .addClass("stat-list__item__title-icon-container__title-number")
@@ -883,14 +816,9 @@ travelApp.displayDestinations = (results, statChoices) => {
       // This question mark icon will sit next to the statTitleElement and when clicked/hoverover, will display the stat description
       let statHoverIconElement = `<i class="stat-list__item__title-icon-container__icon far fa-question-circle"></i>`;
       // append the stat title and icon to the statTitleIconContainerElement
-      statTitleIconContainerElement.append(
-        statTitleElement,
-        statHoverIconElement
-      );
+      statTitleIconContainerElement.append(statTitleElement, statHoverIconElement);
       // This div will hold the stat description and is a sibling of the statTitleIconContainer.
-      let statDescriptionContainerElement = $("<div>").addClass(
-        "stat-list__item__description-container display-none"
-      );
+      let statDescriptionContainerElement = $("<div>").addClass("stat-list__item__description-container display-none");
       // This element holds the stat description
       let statDescriptionElement = $("<p>")
         .addClass("stat-list__item__description-container__description")
@@ -898,10 +826,7 @@ travelApp.displayDestinations = (results, statChoices) => {
       // Append the statDescriptionElement to the statDescriptionContainerElement
       statDescriptionContainerElement.append(statDescriptionElement);
       // Append the two stat div containers to the <li>
-      statListItemElement.append(
-        statTitleIconContainerElement,
-        statDescriptionContainerElement
-      );
+      statListItemElement.append(statTitleIconContainerElement, statDescriptionContainerElement);
       // Append the <li>s to the <ul>
       statListElement.append(statListItemElement);
     });
@@ -912,16 +837,9 @@ travelApp.displayDestinations = (results, statChoices) => {
 
 /*  7.1 Once all images are loaded as background images or regular images, display the final results without "lag"*/
 travelApp.finalDisplay = () => {
-  $(".results").waitForImages(function () {
-    $(".results").css("display", "flex");
+  $(".results").waitForImages(function() {
+    $(".results").css("display", "block");
 
-    let flickityOrNot = "flex";
-    if (window.matchMedia("(max-width: 1920px)").matches) {
-      /* the viewport is at most 1100 pixels wide */
-      flickityOrNot = "block";
-    }
-
-    // $(".results").css("display", flickityOrNot);
     $("html, body")
       .stop()
       .animate({ scrollTop: $(".results").offset().top }, 900, "swing");
@@ -945,32 +863,28 @@ travelApp.finalDisplay = () => {
 };
 
 // 7.2 On hover or click over the question mark icon, display the stat description
-travelApp.displayStatDescription = function () {
-  $(".results").on(
-    "click",
-    ".stat-list__item__title-icon-container__icon",
-    function () {
-      if (
-        $(this)
-          .parents(".stat-list__item")
-          .find(".stat-list__item__description-container")
-          .hasClass("display-none") === false
-      ) {
-        $(".results")
-          .find(".stat-list__item__description-container")
-          .removeClass("display-none")
-          .addClass("display-none");
-      } else {
-        $(".results")
-          .find(".stat-list__item__description-container")
-          .addClass("display-none");
-        $(this)
-          .parents(".stat-list__item")
-          .find(".stat-list__item__description-container")
-          .removeClass("display-none");
-      }
+travelApp.displayStatDescription = function() {
+  $(".results").on("click", ".stat-list__item__title-icon-container__icon", function() {
+    if (
+      $(this)
+        .parents(".stat-list__item")
+        .find(".stat-list__item__description-container")
+        .hasClass("display-none") === false
+    ) {
+      $(".results")
+        .find(".stat-list__item__description-container")
+        .removeClass("display-none")
+        .addClass("display-none");
+    } else {
+      $(".results")
+        .find(".stat-list__item__description-container")
+        .addClass("display-none");
+      $(this)
+        .parents(".stat-list__item")
+        .find(".stat-list__item__description-container")
+        .removeClass("display-none");
     }
-  );
+  });
 };
 
 // This function holds all our events funtions
@@ -982,13 +896,13 @@ travelApp.eventsFunction = () => {
 };
 
 // Init function to hold all our functions in order
-travelApp.init = function () {
+travelApp.init = function() {
   travelApp.eventsFunction();
   travelApp.slideDrag();
 };
 
 // Document Ready to call our init() function and start the app
-$(function () {
+$(function() {
   travelApp.init();
 });
 
@@ -1015,7 +929,7 @@ travelApp.randomize = (startingNum, endingNum) => {
 
 // 8.3 Event listener to transform SVGs into inline SVGS to be able to change their colors with css fill
 travelApp.transformSVG = () => {
-  jQuery("img.svg").each(function () {
+  jQuery("img.svg").each(function() {
     var $img = jQuery(this);
     var imgID = $img.attr("id");
     var imgClass = $img.attr("class");
@@ -1023,7 +937,7 @@ travelApp.transformSVG = () => {
 
     jQuery.get(
       imgURL,
-      function (data) {
+      function(data) {
         // Get the SVG tag, ignore the rest
         var $svg = jQuery(data).find("svg");
 
@@ -1040,15 +954,8 @@ travelApp.transformSVG = () => {
         $svg = $svg.removeAttr("xmlns:a");
 
         // Check if the viewport is set, if the viewport is not set the SVG wont't scale.
-        if (
-          !$svg.attr("viewBox") &&
-          $svg.attr("height") &&
-          $svg.attr("width")
-        ) {
-          $svg.attr(
-            "viewBox",
-            "0 0 " + $svg.attr("height") + " " + $svg.attr("width")
-          );
+        if (!$svg.attr("viewBox") && $svg.attr("height") && $svg.attr("width")) {
+          $svg.attr("viewBox", "0 0 " + $svg.attr("height") + " " + $svg.attr("width"));
         }
 
         // Replace image with new SVG

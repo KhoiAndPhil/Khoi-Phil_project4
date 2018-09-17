@@ -204,6 +204,15 @@ p {
   font-size: 1.5rem;
   font-family: "Roboto", sans-serif; }
 
+a,
+a:visited {
+  color: #f2f2f2;
+  transition: 0.3s; }
+  a:hover,
+  a:visited:hover {
+    transition: 0.3s;
+    color: #fd9341; }
+
 .wrapper-prim {
   max-width: 1920px;
   margin: 0 auto; }
@@ -215,7 +224,11 @@ p {
 .background {
   width: 100%;
   height: 100vh;
+<<<<<<< HEAD
   background: linear-gradient(to bottom, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0)), url(../../assets/road-cropped.jpg) center no-repeat fixed;
+=======
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0)), url(../../assets/road-cropped.jpg) center no-repeat fixed;
+>>>>>>> 6e5aed8fd06dc558c9a3e4d355f20824c153c10f
   background-size: cover; }
 
 li {
@@ -257,6 +270,8 @@ button,
     margin-top: 12px; }
   .welcome h1 {
     margin: 0; }
+  .welcome h4 {
+    font-size: 1.6rem; }
 
 .purpose-section {
   width: 100%;
@@ -463,10 +478,11 @@ input[type="radio"] {
 
 .country-name {
   text-transform: uppercase;
-  margin: 0; }
+  margin: 0 0 1rem 0; }
 
 .wiki-text {
   font-size: 1.6rem;
+  line-height: 2.2rem;
   margin: 0; }
 
 .country-image-container {
@@ -486,7 +502,8 @@ input[type="radio"] {
 
 .stat-list {
   list-style-type: none;
-  padding: 0; }
+  padding: 0;
+  margin: 2rem 0; }
   .stat-list__item {
     position: relative; }
     .stat-list__item__title-icon-container {
@@ -530,19 +547,24 @@ input[type="radio"] {
           margin: 0 2px; }
 
 .flickity-button {
-  background-color: #a5b452;
-  transition: 0.3s; }
+  background-color: #fd9341;
+  transition: 0.3s;
+  display: none; }
   .flickity-button:hover {
     background-color: #282828;
     transition: 0.3s; }
   .flickity-button:hover .flickity-button-icon {
     transition: 0.3s;
+<<<<<<< HEAD
     fill: #a5b452; }
 
 @media screen and (min-width: 1920px) {
   /* disable Flickity for large devices */
   .results:after {
     content: ""; } }
+=======
+    fill: #fd9341; }
+>>>>>>> 6e5aed8fd06dc558c9a3e4d355f20824c153c10f
 
 @media all and (max-width: 1100px) {
   .wrapper-sec {
@@ -561,7 +583,9 @@ input[type="radio"] {
     width: 100%;
     height: 100vh; }
   .country-image-container {
-    width: 60%; } }
+    width: 60%; }
+  .flickity-button {
+    display: block; } }
 
 @media all and (max-width: 800px) {
   .travel-form__button-container {
@@ -647,8 +671,8 @@ input[type="radio"] {
   .choices-list-container {
     width: 80%; }
   .flickity-button {
-    width: 30px;
-    height: 30px; } }
+    width: 25px;
+    height: 25px; } }
 
 @media all and (max-height: 550px) {
   .purpose-header {
