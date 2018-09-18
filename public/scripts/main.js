@@ -702,16 +702,6 @@ travelApp.finalDisplay = function () {
   $(".results").waitForImages(function () {
     $(".results").css("display", "block");
 
-<<<<<<< HEAD
-    var flickityOrNot = "block";
-    if (window.matchMedia("(max-width: 1920px)").matches) {
-      /* the viewport is at most 1100 pixels wide */
-      flickityOrNot = "block";
-    }
-
-    // $(".results").css("display", flickityOrNot);
-=======
->>>>>>> 6e5aed8fd06dc558c9a3e4d355f20824c153c10f
     $("html, body").stop().animate({ scrollTop: $(".results").offset().top }, 900, "swing");
 
     // remove loader and display submit ranking button again
