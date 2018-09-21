@@ -1,5 +1,6 @@
 // IMPORT HEAP MODULE FROM NPM
 const MinHeap = require("fastpriorityqueue");
+import swal from "sweetalert2";
 
 // Create an object representing our travel app (NAMESPACE)
 const travelApp = {};
@@ -475,8 +476,11 @@ travelApp.getUserRankings = () => {
     travelApp.pixaPromiseArray = [];
     travelApp.imageArray = [];
     travelApp.imageTextArray = [];
+    travelApp.flickityOn = false;
 
-    $(".results").flickity("destroy");
+    if (travelApp.flickityOn === true) {
+      $(".results").flickity("destroy");
+    }
     $(".results").css("display", "none");
 
     travelApp.getStat(...statsForAPICall);
@@ -489,6 +493,17 @@ travelApp.getUserRankings = () => {
 travelApp.statKey = "5d3687c7c1788d5f";
 travelApp.statURL = "http://inqstatsapi.inqubu.com";
 travelApp.getStat = (statType1, statType2, statType3) => {
+  // axios({
+  //   method: "GET",
+  //   url: "https://proxy.hackeryou.com",
+  //   dataResponse: "jsonp",
+  //   params: {
+  //     reqUrl: travelApp.statURL,
+  //     api_key: travelApp.statKey,
+  //     data: `hdi,${statType1},${statType2},${statType3}`,
+  //     cmd: "getWorldData"
+  //   }
+  // })
   $.ajax({
     url: travelApp.statURL,
     method: "GET",
@@ -499,9 +514,9 @@ travelApp.getStat = (statType1, statType2, statType3) => {
       cmd: "getWorldData"
     }
   }).then(res => {
+    console.log(res.data);
     // calling the calculation function to get the top n / bottom n countries
-
-    //finalResults holds the final 3 coutries and all of their stats
+    // finalResults holds the final 3 coutries and all of their stats
     let finalResults = travelApp.getRecommendations(res, statType1, statType2, statType3);
 
     // Get wiki and pixa extracts for each country
@@ -860,6 +875,8 @@ travelApp.finalDisplay = () => {
       pageDots: false,
       watchCSS: true
     });
+
+    travelApp.flickityOn === true;
   });
 };
 
@@ -898,6 +915,12 @@ travelApp.eventsFunction = () => {
 
 // Init function to hold all our functions in order
 travelApp.init = function() {
+  swal({
+    type: "warning",
+    title: "API Unavailable",
+    text:
+      "As of September 19th 2018, the INQstats API (which is used to calculate the travel recommendations) is temporarily down. The results functionality is therefore not available until further notice. We sincerely apologize for this inconvenience and ask you to come back to our application in a near future."
+  });
   travelApp.eventsFunction();
   travelApp.slideDrag();
 };
