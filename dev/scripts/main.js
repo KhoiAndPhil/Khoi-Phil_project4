@@ -331,7 +331,7 @@ travelApp.statArray = [
 /* 0. GET STARTED */
 travelApp.getStarted = () => {
   // Listens for click on GET STARTED BUTTON
-  $(".welcome__button").on("click", function() {
+  $(".welcome__button").on("click", function () {
     // Smooth scroll to next section
     $("html, body")
       .stop()
@@ -341,7 +341,7 @@ travelApp.getStarted = () => {
 
 /* 1. GET USER INPUT */
 travelApp.getUserPurpose = () => {
-  $(".travel-form__button").on("click", function() {
+  $(".travel-form__button").on("click", function () {
     // Store user input in variable
     const inputID = $(this).attr("id");
     travelApp.userPurpose = inputID;
@@ -400,7 +400,7 @@ travelApp.displayStats = purposeID => {
 
 /* 3. OBTAIN THE RANKING OF THE STATS FROM USER */
 travelApp.getUserRankings = () => {
-  $(".choices").on("click", ".user-submit", function() {
+  $(".choices").on("click", ".user-submit", function () {
     // remove submit button and put a loader until the results come back
     // .html(`<img class="loader" src="../../assets/spinner-1s-100px.svg">`);
     $(".choices").find(
@@ -853,7 +853,7 @@ travelApp.displayDestinations = (results, statChoices) => {
 
 /*  7.1 Once all images are loaded as background images or regular images, display the final results without "lag"*/
 travelApp.finalDisplay = () => {
-  $(".results").waitForImages(function() {
+  $(".results").waitForImages(function () {
     $(".results").css("display", "block");
 
     $("html, body")
@@ -881,8 +881,8 @@ travelApp.finalDisplay = () => {
 };
 
 // 7.2 On hover or click over the question mark icon, display the stat description
-travelApp.displayStatDescription = function() {
-  $(".results").on("click", ".stat-list__item__title-icon-container__icon", function() {
+travelApp.displayStatDescription = function () {
+  $(".results").on("click", ".stat-list__item__title-icon-container__icon", function () {
     if (
       $(this)
         .parents(".stat-list__item")
@@ -914,19 +914,19 @@ travelApp.eventsFunction = () => {
 };
 
 // Init function to hold all our functions in order
-travelApp.init = function() {
+travelApp.init = function () {
   swal({
     type: "warning",
     title: "API Unavailable",
     text:
-      "As of September 19th 2018, the INQstats API (which is used to calculate the travel recommendations) is temporarily down. The results functionality is therefore not available until further notice. We sincerely apologize for this inconvenience and ask you to come back to our application in a near future."
+      "As of September 19th 2018, the INQstats API (which is used to calculate the travel recommendations) is temporarily down. The results functionality is therefore not available until further notice. We sincerely apologize for this inconvenience and ask you to come back to our application in the near future."
   });
   travelApp.eventsFunction();
   travelApp.slideDrag();
 };
 
 // Document Ready to call our init() function and start the app
-$(function() {
+$(function () {
   travelApp.init();
 });
 
@@ -953,7 +953,7 @@ travelApp.randomize = (startingNum, endingNum) => {
 
 // 8.3 Event listener to transform SVGs into inline SVGS to be able to change their colors with css fill
 travelApp.transformSVG = () => {
-  jQuery("img.svg").each(function() {
+  jQuery("img.svg").each(function () {
     var $img = jQuery(this);
     var imgID = $img.attr("id");
     var imgClass = $img.attr("class");
@@ -961,7 +961,7 @@ travelApp.transformSVG = () => {
 
     jQuery.get(
       imgURL,
-      function(data) {
+      function (data) {
         // Get the SVG tag, ignore the rest
         var $svg = jQuery(data).find("svg");
 
