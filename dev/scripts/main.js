@@ -1,5 +1,6 @@
 // IMPORT HEAP MODULE FROM NPM
 const MinHeap = require("fastpriorityqueue");
+import swal from "sweetalert2";
 
 // Create an object representing our travel app (NAMESPACE)
 const travelApp = {};
@@ -330,7 +331,7 @@ travelApp.statArray = [
 /* 0. GET STARTED */
 travelApp.getStarted = () => {
   // Listens for click on GET STARTED BUTTON
-  $(".welcome__button").on("click", function() {
+  $(".welcome__button").on("click", function () {
     // Smooth scroll to next section
     $("html, body")
       .stop()
@@ -340,7 +341,7 @@ travelApp.getStarted = () => {
 
 /* 1. GET USER INPUT */
 travelApp.getUserPurpose = () => {
-  $(".travel-form__button").on("click", function() {
+  $(".travel-form__button").on("click", function () {
     // Store user input in variable
     const inputID = $(this).attr("id");
     travelApp.userPurpose = inputID;
@@ -399,7 +400,7 @@ travelApp.displayStats = purposeID => {
 
 /* 3. OBTAIN THE RANKING OF THE STATS FROM USER */
 travelApp.getUserRankings = () => {
-  $(".choices").on("click", ".user-submit", function() {
+  $(".choices").on("click", ".user-submit", function () {
     // remove submit button and put a loader until the results come back
     // .html(`<img class="loader" src="../../assets/spinner-1s-100px.svg">`);
     $(".choices").find(
@@ -475,8 +476,11 @@ travelApp.getUserRankings = () => {
     travelApp.pixaPromiseArray = [];
     travelApp.imageArray = [];
     travelApp.imageTextArray = [];
+    travelApp.flickityOn = false;
 
-    $(".results").flickity("destroy");
+    if (travelApp.flickityOn === true) {
+      $(".results").flickity("destroy");
+    }
     $(".results").css("display", "none");
 
     travelApp.getStat(...statsForAPICall);
@@ -489,6 +493,17 @@ travelApp.getUserRankings = () => {
 travelApp.statKey = "5d3687c7c1788d5f";
 travelApp.statURL = "http://inqstatsapi.inqubu.com";
 travelApp.getStat = (statType1, statType2, statType3) => {
+  // axios({
+  //   method: "GET",
+  //   url: "https://proxy.hackeryou.com",
+  //   dataResponse: "jsonp",
+  //   params: {
+  //     reqUrl: travelApp.statURL,
+  //     api_key: travelApp.statKey,
+  //     data: `hdi,${statType1},${statType2},${statType3}`,
+  //     cmd: "getWorldData"
+  //   }
+  // })
   $.ajax({
     url: travelApp.statURL,
     method: "GET",
@@ -499,9 +514,9 @@ travelApp.getStat = (statType1, statType2, statType3) => {
       cmd: "getWorldData"
     }
   }).then(res => {
+    console.log(res.data);
     // calling the calculation function to get the top n / bottom n countries
-
-    //finalResults holds the final 3 coutries and all of their stats
+    // finalResults holds the final 3 coutries and all of their stats
     let finalResults = travelApp.getRecommendations(res, statType1, statType2, statType3);
 
     // Get wiki and pixa extracts for each country
@@ -838,7 +853,7 @@ travelApp.displayDestinations = (results, statChoices) => {
 
 /*  7.1 Once all images are loaded as background images or regular images, display the final results without "lag"*/
 travelApp.finalDisplay = () => {
-  $(".results").waitForImages(function() {
+  $(".results").waitForImages(function () {
     $(".results").css("display", "block");
 
     $("html, body")
@@ -860,12 +875,14 @@ travelApp.finalDisplay = () => {
       pageDots: false,
       watchCSS: true
     });
+
+    travelApp.flickityOn === true;
   });
 };
 
 // 7.2 On hover or click over the question mark icon, display the stat description
-travelApp.displayStatDescription = function() {
-  $(".results").on("click", ".stat-list__item__title-icon-container__icon", function() {
+travelApp.displayStatDescription = function () {
+  $(".results").on("click", ".stat-list__item__title-icon-container__icon", function () {
     if (
       $(this)
         .parents(".stat-list__item")
@@ -897,13 +914,19 @@ travelApp.eventsFunction = () => {
 };
 
 // Init function to hold all our functions in order
-travelApp.init = function() {
+travelApp.init = function () {
+  swal({
+    type: "warning",
+    title: "API Unavailable",
+    text:
+      "As of September 19th 2018, the INQstats API (which is used to calculate the travel recommendations) is temporarily down. The results functionality is therefore not available until further notice. We sincerely apologize for this inconvenience and ask you to come back to our application in the near future."
+  });
   travelApp.eventsFunction();
   travelApp.slideDrag();
 };
 
 // Document Ready to call our init() function and start the app
-$(function() {
+$(function () {
   travelApp.init();
 });
 
@@ -930,7 +953,7 @@ travelApp.randomize = (startingNum, endingNum) => {
 
 // 8.3 Event listener to transform SVGs into inline SVGS to be able to change their colors with css fill
 travelApp.transformSVG = () => {
-  jQuery("img.svg").each(function() {
+  jQuery("img.svg").each(function () {
     var $img = jQuery(this);
     var imgID = $img.attr("id");
     var imgClass = $img.attr("class");
@@ -938,7 +961,7 @@ travelApp.transformSVG = () => {
 
     jQuery.get(
       imgURL,
-      function(data) {
+      function (data) {
         // Get the SVG tag, ignore the rest
         var $svg = jQuery(data).find("svg");
 
