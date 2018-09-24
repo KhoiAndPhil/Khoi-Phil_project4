@@ -1,6 +1,7 @@
+import axios from "axios";
+
 // IMPORT HEAP MODULE FROM NPM
 const MinHeap = require("fastpriorityqueue");
-import swal from "sweetalert2";
 
 // Create an object representing our travel app (NAMESPACE)
 const travelApp = {};
@@ -476,11 +477,17 @@ travelApp.getUserRankings = () => {
     travelApp.pixaPromiseArray = [];
     travelApp.imageArray = [];
     travelApp.imageTextArray = [];
-    travelApp.flickityOn = false;
 
+    // If flickity is not enabled yet, initialize a variable to keep track of whether it is enabled or not
+    if (!travelApp.flickityOn) {
+      travelApp.flickityOn = false;
+    }
+
+    // If flickity is enabled, "destroy" it so the results can be re-rendered without flickity conflicts
     if (travelApp.flickityOn === true) {
       $(".results").flickity("destroy");
     }
+
     $(".results").css("display", "none");
 
     travelApp.getStat(...statsForAPICall);
@@ -493,31 +500,19 @@ travelApp.getUserRankings = () => {
 travelApp.statKey = "5d3687c7c1788d5f";
 travelApp.statURL = "http://inqstatsapi.inqubu.com";
 travelApp.getStat = (statType1, statType2, statType3) => {
-  // axios({
-  //   method: "GET",
-  //   url: "https://proxy.hackeryou.com",
-  //   dataResponse: "jsonp",
-  //   params: {
-  //     reqUrl: travelApp.statURL,
-  //     api_key: travelApp.statKey,
-  //     data: `hdi,${statType1},${statType2},${statType3}`,
-  //     cmd: "getWorldData"
-  //   }
-  // })
-  $.ajax({
-    url: travelApp.statURL,
+  axios({
     method: "GET",
-    dataType: "json",
-    data: {
+    url: travelApp.statURL,
+    dataResponse: "jsonp",
+    params: {
       api_key: travelApp.statKey,
       data: `hdi,${statType1},${statType2},${statType3}`,
       cmd: "getWorldData"
     }
   }).then(res => {
-    console.log(res.data);
     // calling the calculation function to get the top n / bottom n countries
     // finalResults holds the final 3 coutries and all of their stats
-    let finalResults = travelApp.getRecommendations(res, statType1, statType2, statType3);
+    let finalResults = travelApp.getRecommendations(res.data, statType1, statType2, statType3);
 
     // Get wiki and pixa extracts for each country
     finalResults.forEach(countryObj => {
@@ -876,7 +871,7 @@ travelApp.finalDisplay = () => {
       watchCSS: true
     });
 
-    travelApp.flickityOn === true;
+    travelApp.flickityOn = true;
   });
 };
 
@@ -914,6 +909,7 @@ travelApp.eventsFunction = () => {
 };
 
 // Init function to hold all our functions in order
+<<<<<<< HEAD
 travelApp.init = function () {
   swal({
     type: "warning",
@@ -921,6 +917,9 @@ travelApp.init = function () {
     text:
       "As of September 19th 2018, the INQstats API (which is used to calculate the travel recommendations) is temporarily down. The results functionality is therefore not available until further notice. We sincerely apologize for this inconvenience and ask you to come back to our application in the near future."
   });
+=======
+travelApp.init = function() {
+>>>>>>> 5c99da831cb667d763122f4abb11a7a3318126b8
   travelApp.eventsFunction();
   travelApp.slideDrag();
 };

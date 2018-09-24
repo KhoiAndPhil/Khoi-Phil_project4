@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/PhilippeSwing/Khoi-Phil_project4#readme",
   "devDependencies": {
+    "axios": "^0.18.0",
     "babel-core": "^6.26.3",
     "babel-preset-env": "^1.7.0",
     "babelify": "^8.0.0",
@@ -30,9 +31,13 @@
     "vinyl-buffer": "^1.0.1",
     "vinyl-source-stream": "^2.0.0"
   },
+<<<<<<< HEAD
   "dependencies": {
     "axios": "^0.18.0",
     "sweetalert": "^2.1.0",
     "sweetalert2": "^7.26.29"
   }
+=======
+  "dependencies": {}
+>>>>>>> 5c99da831cb667d763122f4abb11a7a3318126b8
 }
