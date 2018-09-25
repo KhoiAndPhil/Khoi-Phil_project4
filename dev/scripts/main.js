@@ -526,6 +526,7 @@ travelApp.getStat = (statType1, statType2, statType3) => {
     // when all wiki and pixa promises are fulfilled, store the results
     // to prepare them for display
     $.when(...travelApp.wikiPromiseArray, ...travelApp.pixaPromiseArray).then((...wikiPixaResults) => {
+      console.log(wikiPixaResults);
       // go through the wikiPixa results
       for (let i = 0; i < wikiPixaResults.length; i++) {
         // first three are wiki, push (store) into array
@@ -705,7 +706,7 @@ travelApp.getWiki = country => {
       titles: country,
       format: "json",
       exlimit: 1,
-      exchars: 280,
+      exchars: 600, // Number of text characters in wiki extract
       exintro: true,
       explaintext: true,
       redirects: 1
@@ -793,7 +794,7 @@ travelApp.displayDestinations = (results, statChoices) => {
     // Add 15 to the image counter ensures that every iteration through the forEach will add images to the associated coutries
     imageCounter += 15;
     //Append the country image to its container
-    smallPixaContainerElement.append(smallPixaImage);
+    // smallPixaContainerElement.append(smallPixaImage);
     // Append the country name <h2>, wiki text <p>, stat list <ul> and image container <div> to the card <div>.
     countryCardElement.append(
       countryNameElement,
