@@ -868,7 +868,9 @@ travelApp.finalDisplay = () => {
       contain: true,
       autoPlay: 5000,
       pageDots: false,
-      watchCSS: true
+      watchCSS: true,
+      lazyLoad: true,
+      // wrapAround: true
     });
 
     travelApp.flickityOn = true;
@@ -909,17 +911,7 @@ travelApp.eventsFunction = () => {
 };
 
 // Init function to hold all our functions in order
-<<<<<<< HEAD
 travelApp.init = function () {
-  swal({
-    type: "warning",
-    title: "API Unavailable",
-    text:
-      "As of September 19th 2018, the INQstats API (which is used to calculate the travel recommendations) is temporarily down. The results functionality is therefore not available until further notice. We sincerely apologize for this inconvenience and ask you to come back to our application in the near future."
-  });
-=======
-travelApp.init = function() {
->>>>>>> 5c99da831cb667d763122f4abb11a7a3318126b8
   travelApp.eventsFunction();
   travelApp.slideDrag();
 };

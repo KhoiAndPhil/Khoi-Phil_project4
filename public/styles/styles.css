@@ -439,7 +439,12 @@ input[type="radio"] {
   display: none;
   position: relative; }
 
+.results-section {
+  background: #e2dbaa url(../../assets/road-cropped.jpg) center no-repeat fixed;
+  background-size: cover; }
+
 .results {
+  width: 60%;
   /* enable Flickity by default */ }
   .results:after {
     content: "flickity";
@@ -447,13 +452,14 @@ input[type="radio"] {
     /* hide :after */ }
 
 .result-container {
-  width: calc(100% / 3);
   height: 100vh;
   display: flex;
   align-items: center;
   background-size: cover;
   background-position: center;
-  padding-top: 1rem; }
+  padding-top: 1rem;
+  min-width: 100%;
+  text-align: center; }
 
 .card {
   width: 80%;
@@ -544,8 +550,7 @@ input[type="radio"] {
 
 .flickity-button {
   background-color: #fd9341;
-  transition: 0.3s;
-  display: none; }
+  transition: 0.3s; }
   .flickity-button:hover {
     background-color: #282828;
     transition: 0.3s; }

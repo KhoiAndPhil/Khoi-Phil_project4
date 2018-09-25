@@ -5,7 +5,13 @@
   position: relative;
 }
 
+.results-section {
+  background: $color-3 url(../../assets/road-cropped.jpg) center no-repeat fixed;
+  background-size: cover;
+}
+
 .results {
+  width: 60%;
   /* enable Flickity by default */
   &:after {
     content: "flickity";
@@ -14,13 +20,15 @@
 }
 
 .result-container {
-  width: calc(100% / 3);
+  // width: 60%;
   height: 100vh;
   display: flex;
   align-items: center;
   background-size: cover;
   background-position: center;
   padding-top: 1rem;
+  min-width: 100%; 
+  text-align: center;
 }
 
 .card {
@@ -133,7 +141,7 @@
 .flickity-button {
   background-color: $color-5;
   transition: 0.3s;
-  display: none;
+  // display: none;
 
   &:hover {
     background-color: $color-1;
