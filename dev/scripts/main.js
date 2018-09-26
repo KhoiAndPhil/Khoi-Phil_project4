@@ -777,6 +777,8 @@ travelApp.displayDestinations = (results, statChoices) => {
     let countryDescriptionElement = $("<p>")
       .addClass("wiki-text")
       .text(travelApp.wikiExtract[countryCounter]);
+    // This link will allow users to navigate to Wikipedia and read more on the country
+    let readMore = $("<a>").addClass("read-more").attr("href", `https://en.wikipedia.org/wiki/${country.countryName}`).attr("target", "_blank").text("Read More");
     countryCounter++;
     // This element holds the text for each of the three stats we're displaying
     let statListElement = $("<ul>").addClass("stat-list");
@@ -798,6 +800,7 @@ travelApp.displayDestinations = (results, statChoices) => {
     countryCardElement.append(
       countryNameElement,
       countryDescriptionElement,
+      readMore,
       statListElement,
       smallPixaContainerElement
     );
