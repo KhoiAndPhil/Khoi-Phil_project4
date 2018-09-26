@@ -332,7 +332,7 @@ travelApp.statArray = [
 /* 0. GET STARTED */
 travelApp.getStarted = () => {
   // Listens for click on GET STARTED BUTTON
-  $(".welcome__button").on("click", function() {
+  $(".welcome__button").on("click", function () {
     // Smooth scroll to next section
     $("html, body")
       .stop()
@@ -342,7 +342,7 @@ travelApp.getStarted = () => {
 
 /* 1. GET USER INPUT */
 travelApp.getUserPurpose = () => {
-  $(".travel-form__button").on("click", function() {
+  $(".travel-form__button").on("click", function () {
     // Store user input in variable
     const inputID = $(this).attr("id");
     travelApp.userPurpose = inputID;
@@ -401,7 +401,7 @@ travelApp.displayStats = purposeID => {
 
 /* 3. OBTAIN THE RANKING OF THE STATS FROM USER */
 travelApp.getUserRankings = () => {
-  $(".choices").on("click", ".user-submit", function() {
+  $(".choices").on("click", ".user-submit", function () {
     // remove submit button and put a loader until the results come back
     // .html(`<img class="loader" src="../../assets/spinner-1s-100px.svg">`);
     $(".choices").find(
@@ -705,7 +705,7 @@ travelApp.getWiki = country => {
       titles: country,
       format: "json",
       exlimit: 1,
-      exchars: 280,
+      exchars: 600, // Number of text characters in wiki extract
       exintro: true,
       explaintext: true,
       redirects: 1
@@ -777,6 +777,8 @@ travelApp.displayDestinations = (results, statChoices) => {
     let countryDescriptionElement = $("<p>")
       .addClass("wiki-text")
       .text(travelApp.wikiExtract[countryCounter]);
+    // This link will allow users to navigate to Wikipedia and read more on the country
+    let readMore = $("<a>").addClass("read-more").attr("href", `https://en.wikipedia.org/wiki/${country.countryName}`).attr("target", "_blank").text("Read More");
     countryCounter++;
     // This element holds the text for each of the three stats we're displaying
     let statListElement = $("<ul>").addClass("stat-list");
@@ -793,11 +795,12 @@ travelApp.displayDestinations = (results, statChoices) => {
     // Add 15 to the image counter ensures that every iteration through the forEach will add images to the associated coutries
     imageCounter += 15;
     //Append the country image to its container
-    smallPixaContainerElement.append(smallPixaImage);
+    // smallPixaContainerElement.append(smallPixaImage);
     // Append the country name <h2>, wiki text <p>, stat list <ul> and image container <div> to the card <div>.
     countryCardElement.append(
       countryNameElement,
       countryDescriptionElement,
+      readMore,
       statListElement,
       smallPixaContainerElement
     );
@@ -848,7 +851,7 @@ travelApp.displayDestinations = (results, statChoices) => {
 
 /*  7.1 Once all images are loaded as background images or regular images, display the final results without "lag"*/
 travelApp.finalDisplay = () => {
-  $(".results").waitForImages(function() {
+  $(".results").waitForImages(function () {
     $(".results").css("display", "block");
 
     $("html, body")
@@ -868,7 +871,9 @@ travelApp.finalDisplay = () => {
       contain: true,
       autoPlay: 5000,
       pageDots: false,
-      watchCSS: true
+      watchCSS: true,
+      lazyLoad: true,
+      // wrapAround: true
     });
 
     travelApp.flickityOn = true;
@@ -876,8 +881,8 @@ travelApp.finalDisplay = () => {
 };
 
 // 7.2 On hover or click over the question mark icon, display the stat description
-travelApp.displayStatDescription = function() {
-  $(".results").on("click", ".stat-list__item__title-icon-container__icon", function() {
+travelApp.displayStatDescription = function () {
+  $(".results").on("click", ".stat-list__item__title-icon-container__icon", function () {
     if (
       $(this)
         .parents(".stat-list__item")
@@ -909,13 +914,13 @@ travelApp.eventsFunction = () => {
 };
 
 // Init function to hold all our functions in order
-travelApp.init = function() {
+travelApp.init = function () {
   travelApp.eventsFunction();
   travelApp.slideDrag();
 };
 
 // Document Ready to call our init() function and start the app
-$(function() {
+$(function () {
   travelApp.init();
 });
 
@@ -942,7 +947,7 @@ travelApp.randomize = (startingNum, endingNum) => {
 
 // 8.3 Event listener to transform SVGs into inline SVGS to be able to change their colors with css fill
 travelApp.transformSVG = () => {
-  jQuery("img.svg").each(function() {
+  jQuery("img.svg").each(function () {
     var $img = jQuery(this);
     var imgID = $img.attr("id");
     var imgClass = $img.attr("class");
@@ -950,7 +955,7 @@ travelApp.transformSVG = () => {
 
     jQuery.get(
       imgURL,
-      function(data) {
+      function (data) {
         // Get the SVG tag, ignore the rest
         var $svg = jQuery(data).find("svg");
 
