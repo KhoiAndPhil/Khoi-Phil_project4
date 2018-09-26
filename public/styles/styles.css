@@ -287,7 +287,8 @@ button,
 
 .purpose-header {
   margin: 0;
-  text-align: center; }
+  text-align: center;
+  color: #282828; }
 
 .travel-form {
   display: flex;
@@ -356,7 +357,8 @@ input[type="radio"] {
   margin: 0 0 5rem 0;
   padding: 0rem;
   padding-top: 8rem;
-  width: 80%; }
+  width: 80%;
+  color: #282828; }
 
 .choices-list-container {
   position: relative;

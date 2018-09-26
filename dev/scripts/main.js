@@ -526,7 +526,6 @@ travelApp.getStat = (statType1, statType2, statType3) => {
     // when all wiki and pixa promises are fulfilled, store the results
     // to prepare them for display
     $.when(...travelApp.wikiPromiseArray, ...travelApp.pixaPromiseArray).then((...wikiPixaResults) => {
-      console.log(wikiPixaResults);
       // go through the wikiPixa results
       for (let i = 0; i < wikiPixaResults.length; i++) {
         // first three are wiki, push (store) into array
